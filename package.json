@@ -1,0 +1,36 @@
+{
+  "name": "webpack-simple-template",
+  "version": "1.0.0",
+  "description": "webpack template",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=local webpack-dev-server --config config/webpack.dev.config.js --open --hot"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Weiyu-Chen/webpack-simple-template.git"
+  },
+  "keywords": [
+    "webpack",
+    "webpack-dev-server"
+  ],
+  "author": "willchen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Weiyu-Chen/webpack-simple-template/issues"
+  },
+  "homepage": "https://github.com/Weiyu-Chen/webpack-simple-template#readme",
+  "devDependencies": {
+    "autoprefixer-loader": "^3.2.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "cross-env": "^5.0.5",
+    "css-loader": "^0.28.7",
+    "file-loader": "^0.11.2",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.5.6",
+    "webpack-dev-server": "^2.7.1"
+  }
+}
