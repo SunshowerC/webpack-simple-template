@@ -13,8 +13,8 @@ module.exports = {
         main: resolve(webRootDir, './src/main.js'),
     },
     output: {
-        path: resolve(webRootDir, './build'), // 输出路径
-        publicPath: '/build/', // 公共资源路径
+        path: resolve(webRootDir, './build/assets/'), // 输出路径
+        publicPath: '/assets/', // 公共资源路径
         filename: '[name].js' // 输出文件名字，此处输出main.js, babel-polyfill.js ,  视情况可以配置[name].[chunkhash].js添加文件hash, 管理缓存
     },
     module: {
@@ -78,11 +78,10 @@ module.exports.plugins = (module.exports.plugins || []).concat([
         'process.env': {
             NODE_ENV: `"development"`
         },
-        'packageEnv': `"${process.env.NODE_ENV}"`
     }),
     /*清除之前打包过的文件*/
-    new CleanWebpackPlugin(['build/*', 'm/*'], {
-        root: resolve(webRootDir, '../resources/static'),
+    new CleanWebpackPlugin(['*'], {
+        root: resolve(webRootDir, './build/'),
         verbose: true,
         dry: false,
         exclude: [],
@@ -91,9 +90,10 @@ module.exports.plugins = (module.exports.plugins || []).concat([
     /*HTML模板*/
     new HtmlWebpackPlugin({
         // favicon: resolve(webRootDir, './src/static/ico_pb_16X16.ico' ),
-        template: resolve(webRootDir, './index-template.html'),
-        filename: 'index.html',
+        template:'html-withimg-loader!' + resolve(webRootDir, './html-template/index.html'),
+        filename: resolve( webRootDir, './build/index.html'),
         title: 'XX系统',
+        inject: 'head',
     }),
     /*压缩，混淆加密*/
     new webpack.optimize.UglifyJsPlugin({
@@ -120,12 +120,13 @@ module.exports.plugins = (module.exports.plugins || []).concat([
         minimize: true
     }),
     /*提取公用*/
-    new webpack.optimize.CommonsChunkPlugin({
+/*    new webpack.optimize.CommonsChunkPlugin({
         name: "vendor",
         filename: "vendor.js",
         minChunks: Infinity,
         chunks: ["main"], // 只在 main 的 entry 中使用到 commonChunk
     }),
-
+*/
+    
 
 ])
