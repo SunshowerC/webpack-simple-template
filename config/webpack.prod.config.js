@@ -90,7 +90,7 @@ module.exports.plugins = (module.exports.plugins || []).concat([
     /*HTML模板*/
     new HtmlWebpackPlugin({
         // favicon: resolve(webRootDir, './src/static/ico_pb_16X16.ico' ),
-        template:'html-withimg-loader!' + resolve(webRootDir, './html-template/index.html'),
+        template:'html-withimg-loader!' + resolve(webRootDir, './html-template/index.html'), //html-withimg-loader 可以将html中img标签打包进输出文件
         filename: resolve( webRootDir, './build/index.html'),
         title: 'XX系统',
         inject: 'head',
@@ -119,7 +119,7 @@ module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.LoaderOptionsPlugin({
         minimize: true
     }),
-    /*提取公用*/
+    /*提取公用第三方库*/
 /*    new webpack.optimize.CommonsChunkPlugin({
         name: "vendor",
         filename: "vendor.js",
