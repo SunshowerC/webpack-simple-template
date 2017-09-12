@@ -1,5 +1,8 @@
 const path = require('path'),
-    webpack = require('webpack');
+    webpack = require('webpack'),
+    config = require('./base.js');
+
+let loader = config.loader;
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -18,29 +21,7 @@ module.exports = {
         filename: '[name].js' // 输出文件名字，此处输出main.js, babel-polyfill.js ,  视情况可以配置[name].[chunkhash].js添加文件hash, 管理缓存
     },
     module: {
-        rules: [ //模块化的loader，有对应的loader，该文件才能作为模块被webpack识别
-            {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                exclude: /node_modules/
-            }, {
-                test: /\.(png|jpg|gif|svg|ico)$/,
-                loader: 'file-loader',
-                options: {
-                    name: '[name].[ext]?[hash]'
-                }
-            }, {
-                test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
-                loader: 'file-loader'
-            }, {
-                test: /\.css$/,
-                loader: 'style-loader!css-loader'
-            }, {
-                test: /\.scss$/,
-                loader: 'style-loader!css-loader!autoprefixer-loader?{browsers:["last 5 version", "Firefox' +
-                    ' 15"]}!sass-loader?sourceMap&outputStyle=compressed'
-            }
-        ]
+        rules: loader, //模块化的loader，有对应的loader，该文件才能作为模块被webpack识别
     },
 
     resolve: {
@@ -54,20 +35,30 @@ module.exports = {
         }
     },
 
-    devServer: { // webpack-dev-server 热加载的配置
+/*    devServer: { // webpack-dev-server 热加载的配置
         host: '127.0.0.1', //本地ip, 如需局域网内其他及其通过ip访问，配置"0.0.0.0"即可
         port: 8080,
         disableHostCheck: true,
         historyApiFallback: true,
-        noInfo: true
-    },
+        noInfo: true,
+        allowedHosts: ['.csdn.net'],
+        proxy: {
+            '/api/': {
+                target: 'http://127.0.0.1:8081',
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/api': ''
+                }
+            }
+        },
+    },*/
 
     performance: {
         hints: false
     },
 
 }
-    
+
 module.exports.devtool = '#source-map'
 
 /*插件*/
@@ -90,10 +81,10 @@ module.exports.plugins = (module.exports.plugins || []).concat([
     /*HTML模板*/
     new HtmlWebpackPlugin({
         // favicon: resolve(webRootDir, './src/static/ico_pb_16X16.ico' ),
-        template:'html-withimg-loader!' + resolve(webRootDir, './html-template/index.html'), //html-withimg-loader 可以将html中img标签打包进输出文件
-        filename: resolve( webRootDir, './build/index.html'),
+        template: 'html-withimg-loader!' + resolve(webRootDir, './html-template/index.html'), //html-withimg-loader 可以将html中img标签打包进输出文件
+        filename: resolve(webRootDir, './build/index.html'),
         title: 'XX系统',
-        inject: 'head',
+
     }),
     /*压缩，混淆加密*/
     new webpack.optimize.UglifyJsPlugin({
@@ -120,13 +111,13 @@ module.exports.plugins = (module.exports.plugins || []).concat([
         minimize: true
     }),
     /*提取公用第三方库*/
-/*    new webpack.optimize.CommonsChunkPlugin({
-        name: "vendor",
-        filename: "vendor.js",
-        minChunks: Infinity,
-        chunks: ["main"], // 只在 main 的 entry 中使用到 commonChunk
-    }),
-*/
-    
+    /*    new webpack.optimize.CommonsChunkPlugin({
+            name: "vendor",
+            filename: "vendor.js",
+            minChunks: Infinity,
+            chunks: ["main"], // 只在 main 的 entry 中使用到 commonChunk
+        }),
+    */
+
 
 ])
