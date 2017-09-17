@@ -1,15 +1,14 @@
 const path = require('path'),
     webpack = require('webpack'),
-    config = require('./base.js');
+    {loader, webpackResolve, webRootDir} = require('./base.js');
 
-let loader = config.loader;
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const resolve = path.resolve;
-const webRootDir = resolve(__dirname, '../');
+ 
 
 
 module.exports = {
@@ -25,17 +24,7 @@ module.exports = {
         rules: loader, //模块化的loader，有对应的loader，该文件才能作为模块被webpack识别
     },
 
-    resolve: {
-        extensions: ['.js'], // 定义后缀名 ，import时可以省略“.js”后缀
-        alias: { // 别名。 如 import "./src/style/common.css"  ==> import "style/common.css"
-            'components': resolve(webRootDir, './src/components'),
-            'page': resolve(webRootDir, './src/page'),
-            'style': resolve(webRootDir, './src/style'),
-            'script': resolve(webRootDir, './src/script'),
-            'static': resolve(webRootDir, './static')
-        }
-    },
-
+    resolve: webpackResolve,
 
     performance: {
         hints: false
@@ -73,7 +62,6 @@ module.exports.plugins = (module.exports.plugins || []).concat([
     /*压缩，混淆加密*/
     new webpack.optimize.UglifyJsPlugin({
         // sourceMap: true,
-
         // 最紧凑的输出
         beautify: false,
         // 删除所有的注释

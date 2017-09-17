@@ -1,12 +1,12 @@
 let path = require('path'),
     webpack = require('webpack'),
-    config = require('./base.js');
+    {loader, webpackResolve, webRootDir} = require('./base.js');
 
-let loader = config.loader;
+// let loader = config.loader;
 
 
 let resolve = path.resolve;
-let webRootDir = resolve(__dirname, '../');
+// let webRootDir = resolve(__dirname, '../');
 
 
 
@@ -23,16 +23,8 @@ module.exports = {
         rules: loader //模块化的loader，有对应的loader，该文件才能作为模块被webpack识别
     },
 
-    resolve: {
-        extensions: ['.js'], // 定义后缀名 ，import时可以省略“.js”后缀
-        alias: { // 别名。 如 import "./src/style/common.css"  ==> import "style/common.css"
-            'components': resolve(webRootDir, './src/components'),
-            'page': resolve(webRootDir, './src/page'),
-            'style': resolve(webRootDir, './src/style'),
-            'script': resolve(webRootDir, './src/script'),
-            'static': resolve(webRootDir, './src/static')
-        }
-    },
+    resolve: webpackResolve,
+
 
     devServer: { // webpack-dev-server 热加载的配置
         host: '127.0.0.1', //本地ip, 如需局域网内其他及其通过ip访问，配置"0.0.0.0"即可

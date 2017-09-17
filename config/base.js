@@ -1,4 +1,11 @@
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
+let {resolve} = require('path');
+
+// web 工程根目录
+let webRootDir = resolve(__dirname, '../');
+
+
+exports.webRootDir = webRootDir;
 
 exports.loader =
     [ //模块化的loader，有对应的loader，该文件才能作为模块被webpack识别
@@ -16,10 +23,23 @@ exports.loader =
             }]
         }, {
             test: /\.(css|scss)$/,
-            use: ExtractTextPlugin.extract({  //抽离css文件，到单独的文件中。还需要plugin中配置
+            //如果是生产环境，抽离css文件，到单独的文件中。还需要plugin中配置
+            use: process.env.NODE_ENV === 'production' ?
+            ExtractTextPlugin.extract({ 
                 fallback: 'style-loader',
                 use: ['css-loader', 'postcss-loader', 'sass-loader']
-            }) 
+            }) : ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
         },
     ];
 
+
+exports.webpackResolve = {
+    extensions: ['.js'], // 定义后缀名 ，import时可以省略“.js”后缀
+    alias: { // 别名。 如 import "./src/style/common.css"  ==> import "style/common.css"
+        'components': resolve(webRootDir, './src/components'),
+        'page': resolve(webRootDir, './src/page'),
+        'style': resolve(webRootDir, './src/style'),
+        'script': resolve(webRootDir, './src/script'),
+        'static': resolve(webRootDir, './src/static')
+    }
+}
