@@ -1,3 +1,5 @@
+let ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 exports.loader =
     [ //模块化的loader，有对应的loader，该文件才能作为模块被webpack识别
         {
@@ -14,7 +16,10 @@ exports.loader =
             }]
         }, {
             test: /\.(css|scss)$/,
-            use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
+            use: ExtractTextPlugin.extract({  //抽离css文件，到单独的文件中。还需要plugin中配置
+                fallback: 'style-loader',
+                use: ['css-loader', 'postcss-loader', 'sass-loader']
+            }) 
         },
     ];
 

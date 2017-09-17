@@ -6,6 +6,7 @@ let loader = config.loader;
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const resolve = path.resolve;
 const webRootDir = resolve(__dirname, '../');
@@ -35,23 +36,6 @@ module.exports = {
         }
     },
 
-/*    devServer: { // webpack-dev-server 热加载的配置
-        host: '127.0.0.1', //本地ip, 如需局域网内其他及其通过ip访问，配置"0.0.0.0"即可
-        port: 8080,
-        disableHostCheck: true,
-        historyApiFallback: true,
-        noInfo: true,
-        allowedHosts: ['.csdn.net'],
-        proxy: {
-            '/api/': {
-                target: 'http://127.0.0.1:8081',
-                changeOrigin: true,
-                pathRewrite: {
-                    '^/api': ''
-                }
-            }
-        },
-    },*/
 
     performance: {
         hints: false
@@ -110,6 +94,8 @@ module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.LoaderOptionsPlugin({
         minimize: true
     }),
+    new ExtractTextPlugin('style.css'),
+
     /*提取公用第三方库*/
     /*    new webpack.optimize.CommonsChunkPlugin({
             name: "vendor",
