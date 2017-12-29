@@ -1,8 +1,17 @@
 {
   "presets": [
-    ["env", {
-      "modules": false,
-    }]
+      "env"
   ],
-  "plugins": ["transform-runtime","transform-object-rest-spread"],
+  "plugins": [
+    "transform-vue-jsx",
+    "transform-object-rest-spread",
+    [
+      "transform-runtime",
+      {
+        "polyfill": true,
+        "regenerator": true
+      }
+    ],
+
+  ]
 }
