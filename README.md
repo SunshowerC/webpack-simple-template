@@ -1,5 +1,5 @@
 
-# 开发
+# 本地开发
 1. `cnpm i` or `npm i` 安装依赖包
 2. `npm run dev` 跑 webpack-dev-server服务
 
@@ -32,24 +32,11 @@
 │   └── index.html             # 应用顶部入口文件（eg: 访问127.0.0.1:8080/ 可以访问到该入口）
 │
 ├── src/                        # 业务源码文件夹
-│   ├── main.js                 # 应用入口文件
-│   ├── App.vue                 # vue 应用根组件，在main.js中引入
 │   │
-│   ├── xxx.js                 # 应用其他入口文件
-│   │
-│   │
-│   ├── components/             #  可复用基础组件
-│   │   ├── SelectorItem.vue
-│   │   └── ...
 │   │
 │   ├── page/                   # 单个页面的组件目录
-│   │   ├── workspace/           #  一级导航路径对应的 所有页面文件夹
-│   │   │      ├── components/        #  一级路径页面 拆分的组件。
-│   │   │      │      └── Dialog.vue
-│   │   │      ├── Index.vue              # 对应一级路径的页面 ( /workspace/ )
-│   │   │      ├── Detail.vue       # 对应的子页面( /workspace/detail/:id )
-│   │   │      └── ......
-│   │   ├── user/
+│   │   ├── index               #  一级导航路径对应的 所有页面文件夹
+│   │   ├── user
 │   │   └── ...
 │   │
 │   ├── static/                   #  静态资源目录
@@ -58,22 +45,9 @@
 │   │
 │   ├── script/                   #  js文件夹
 │   │
-│   ├── style/                   #  可复用样式文件，不可复用的之间写在`.vue`文件中
-│   │   ├── common.scss                # 全局通用样式
-│   │   └── ......
-│   │
-│   ├── store/                   #  状态管理器，需模块化
-│   │   ├── index.js                # 组装模块并导出 store 的地方
-│   │   ├── root.js                # 根模块
-│   │   └── modules/            #  vuex模块目录
-│   │           ├── publish.js       # 发布模块
-│   │           └── ......
-│   │
-│   ├── routes/                   #  路由配置
-│   │
-│   └── axios/                   #  http 库
-│       ├── index.js                #  配置好的http构造实例
-│       └── config.js              #  配置请求
+│   └── style/                   #  可复用样式文件，不可复用的之间写在`.vue`文件中
+│       ├── common.scss                # 全局通用样式
+│       └── ......
 │
 │
 ├── config.js                   # 基础常用配置，包括代理转发配置，webpack多入口配置，抽离第三库配置等

@@ -3,7 +3,7 @@
  */
 module.exports = {
     host: "127.0.0.1",
-    port: 8080,
+    port: 8088,
 
     /*
     * 本地开发，代理转发
@@ -20,19 +20,20 @@ module.exports = {
     },
 
     /*
-    * 入口
+    * 多入口配置
     * */
     entry: {
         main: {
-            script  : "./src/main.js",
-            template: "./html-template/index.html",
+            script  : "./src/page/index/main.js", // main入口
+            template: "./html-template/index.html", // 对应的html文件
         },
         user: {
-            script  : "./src/user.js",
+            script  : "./src/page/user/index.js",  // user 入口
             template: "./html-template/user/index.html",
         },
         admin: {
-            script  : "./src/admin.js",
+            script  : "./src/page/user/admin.js",
+            //自定义更多配置， template 为对象时，配置方法如 https://www.npmjs.com/package/html-webpack-plugin
             template: {
                 // 模板路径
                 // html-withimg-loader 可以将html中img标签打包进输出文件
@@ -50,12 +51,7 @@ module.exports = {
 
     /* 抽离第三方库，避免每次都打包，优化打包效率*/
     vendor: [
-        "vue",
-        "vue-router",
-        "vuex",
-        "element-ui",
-        "axios",
-        "qs",
+        'echarts'
     ],
 
 };

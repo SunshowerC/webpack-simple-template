@@ -88,7 +88,7 @@ module.exports.plugins = (module.exports.plugins || []).concat([
         },
     }),
     /* 清除之前打包过的文件*/
-    new CleanWebpackPlugin(["assets"], {
+    new CleanWebpackPlugin([publicPath], {
         root   : resolve(outputPath), // root 必须为绝对路径
         verbose: true,
         dry    : false,
