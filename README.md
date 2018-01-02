@@ -52,10 +52,9 @@
 │
 ├── config.js                   # 基础常用配置，包括代理转发配置，webpack多入口配置，抽离第三库配置等
 ├── .babelrc                    # babel 配置文件
-├── .eslintrc.js                # eslint 规则配置文件（由于每个人的编程习惯不一样，本模板只收录了可自动 fix 的规则，从而全部代码风格统一一致）
+├── .eslintrc.js                # eslint 规则配置文件（由于每个人的编程习惯不一样，本模板只收录了可自动 fix 的规则，从而全部代码风格一致）
 ├── .gitignore                  # git 工程忽略文件
 ├── postcss.config.js           # postcss配置，本模板仅配置了autoprefixer
-├── .gitignore                  # git 工程忽略文件
 └── package.json                # npm 配置文件
 ```
 
